@@ -1,0 +1,28 @@
+<!-------------------Login form template---------------------------------->
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Mwafunzi - Login{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>Login</h1>
+</div>
+<div class="col-md-4">
+    {{ wtf.quick_form(form) }}
+</div>
+<!-------------------link to the registration page--------------->
+<p>
+    New user?
+    <a href="{{ url_for('auth.register') }}">
+    Click here to register
+    </a>
+</p>
+<p>
+    Forgot Password?
+    <a href="{{ url_for('auth.forgot') }}">
+    Click here
+    </a>
+</p>
+{% endblock %}
+<!------------------------------------------------------------------------->

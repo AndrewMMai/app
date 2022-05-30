@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+{% block title %}Mwafunzi - {{ user.username }}{% endblock %}
+
+{% block page_content %}
+<div>
+    <img class="img-rounded profile-thumbnail" src="{{ user.gravatar(size=75) }}">
+    <div class="profile-header">
+        <h1>{{ user.username }}</h1>
+    </div>
+    {% if user.username or user.location %}
+    <p>
+        <ol><b>Name :</b> {% if user.name %}{{ user.name }}{% endif %}</ol>
+        <ol><b>Email :</b> {% if user.email %}{{ user.email }}{% endif %}</ol>
+        <ol><b>Year of Study :</b> {% if user.yearOfStudy %}{{ user.yearOfStudy }}{% endif %}</ol>
+        <ol><b>Registration Number :</b> {% if user.regNumber %}{{ user.regNumber }}{% endif %}</ol>
+        <ol><b>Phone Number :</b> {% if user.phoneNumber %}{{ user.phoneNumber }}{% endif %}</ol>
+    </p>
+</div>
+
+{% if role == 'Administrator' %}
+<a class="btn btn-default" href="{{ url_for('.edit_profile_admin', id=user.user_id) }}">
+Edit Profile [Admin]
+</a>
+<a class="btn btn-default" href="{{ url_for('.send_message', name = user.name) }}">Send Message</a>
+<a class="btn btn-default" href="{{ url_for('main.see_all', id = user.user_id) }}">
+    See user's dashboard messages
+</a>
+{% else %}
+<a class="btn btn-default" href="{{ url_for('.edit_profile') }}">
+Edit Profile
+</a>
+<a class="btn btn-default" href="{{ url_for('.general') }}">
+    Submit general request to admins
+</a>
+{% endif %}
+{% endif %}
+{% endblock %}
+
+{% block asidecontent %}
+<link rel = "stylesheet" href = '/static/main.css/'/>
+<div class="page-header">
+    <h3>Commodities on sale by {{ user.username }}</h3>
+</div>
+<ul class="commodities">
+    {% if commodities == [] %}
+    <p> Sorry! Currently, you have no items on sale...</p>
+    <img src = "{{ url_for('static', filename = 'image3.jpg') }}" class="center"/>
+    
+    {% else %}
+    <table class="table">
+        <tr>
+            <th>Photo</th>
+            <th> Seller </th>
+            <th> Commodity name </th>
+            <th > Commodity Type </th>
+            <th > Quantity on sale </th>
+            <th > Price per unit </th>
+            <th> Percentage Discount </th>
+            <th> In Stock </th>
+            <th> Option </th>
+        </tr>
+        {% for commodity in commodities %}
+
+        <tr>
+            <td>
+                <img src="{{ url_for('.view', id=commodity.id) }}"
+                width="50" height="50"/>
+            </td>
+            <td>
+                <div class="commodity-author">{{ commodity.author.username }} </div>
+            </td>
+            <td>
+                <div class="commodity-name">{{ commodity.name }} </div>
+            </td>
+            <td>
+                <div class="commodity-type">{{ commodity.type }} </div>
+            </td>
+            <td>
+                <div class="commodity-quantity">{{ commodity.quantity }} </div>
+            </td>
+            <td>
+                <div class="commodity-price">Ksh {{ commodity.discPrice }} </div>
+            </td>
+            <td>
+                <div class="commodity-discount">{{ commodity.percDiscount }}% </div>
+            </td>
+            <td>
+                <div class="commodity-stock">{{ commodity.inStock }} </div>
+            </td>
+            <td>
+                <div class="commodity-delete">
+                    <a class="btn btn-default" href="{{ url_for('.delete', id = commodity.id) }}">
+                        Delete commodity from sale
+                    </a>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</ul>
+
+{% if current_user.role == 'Administrator' %}
+<div class="page-header">
+    <h3>Commodities pending by {{ user.username }}</h3>
+</div>
+<ul class="commodities">
+    {% if bout1 == [] %}
+    <p> Sorry! Currently, no pending items...</p>
+    <img src = "{{ url_for('static', filename = 'image3.jpg') }}" class="center"/>
+    
+    {% else %}
+    <table class="table">
+        <tr>
+            <th>Photo</th>
+            <th> Seller </th>
+            <th> Commodity name </th>
+            <th > Commodity Type </th>
+            <th > Quantity on sale </th>
+            <th > Price per unit </th>
+            <th> Percentage Discount </th>
+            <th> In Stock </th>
+            <th> Option </th>
+        </tr>
+        {% for boutss in bout1 %}
+
+        <tr>
+            <td>
+                <img src="{{ url_for('.viewsss', id=boutss.id) }}"
+                width="50" height="50"/>
+            </td>
+            <td>
+                <div class="commodity-author">{{ boutss.author2 }} </div>
+            </td>
+            <td>
+                <a href="{{ url_for('.comview', id = boutss.id) }}" target="_blank" rel="noopener noreferrer">
+                    <div class="commodity-name">{{ boutss.name }} </div>
+                </a>
+            </td>
+            <td>
+                <div class="commodity-type">{{ boutss.type }} </div>
+            </td>
+            <td>
+                <div class="commodity-quantity">{{ boutss.quantity }} </div>
+            </td>
+            <td>
+                <div class="commodity-price">Ksh {{ boutss.discPrice }} </div>
+            </td>
+            <td>
+                <div class="commodity-discount">{{ boutss.percDiscount }}% </div>
+            </td>
+            <td>
+                <div class="commodity-stock">{{ boutss.inStock }} </div>
+            </td>
+            <td>
+                <div class="commodity-delete">
+                    <a class="btn btn-default" href="{{ url_for('.delpend', id = boutss.id) }}">
+                        Delete
+                    </a>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</ul>
+{% endif %}
+
+{% if user.confirmed == True %}
+    <div class="page-header">
+        <h3>Commodities bought by {{ user.username }}</h3>
+    </div>
+    <div>
+        <a class="btn btn-default" href="{{ url_for('.show_bought', user = user.name) }}"> See records</a>
+    </div>
+    <div class="page-header">
+        <h3>Commodities sold by {{ user.username }}</h3>
+    </div>
+    <div>
+        <a class="btn btn-default" href="{{ url_for('.show_sold', user = user.name) }}"> See records</a>
+    </div>
+{% endif %}
+{% endblock %}

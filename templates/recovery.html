@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Mwafunzi - Answer question{% endblock %}
+{% block page_content %}
+<div class="page-header">
+    <h1>Answer</h1>
+</div>
+<div>
+    <p>{{ question }}?</p>
+</div>
+<div>
+    {{ wtf.quick_form(form) }}
+</div>
+{% endblock %}

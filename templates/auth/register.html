@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Mwafunzi - Registration{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>Registration</h1>
+</div>
+<div class="col-md-4">
+    {{ wtf.quick_form(form) }}
+</div>
+<div>
+    <p>
+        Be sure to read our <b>Rules and Regulations</b>
+        before submitiing your registration details
+        <a href="/rules/" target="_blank" rel="noopener noreferrer">here</a>
+    </p>
+</div>
+{% endblock %}

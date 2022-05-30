@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %} Mwafunzi - All Messages{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1> All messages </h1>
+</div>
+<table class="table">
+    <tr>
+        <th>Sender</th>
+        <th>Time Sent</th>
+        <th>Message</th>
+    </tr>
+    {% for message in messages %}
+    <tr>
+        <td>{{message.sender}}</td>
+        <td>{{message.timestamp}}</td>
+        <td>{{message.message}}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

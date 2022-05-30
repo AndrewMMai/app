@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}Mwafunzi - Foodstuffs Page{% endblock %}
+{% block asidecontent %}
+<link rel = "stylesheet" href = '/static/main.css/'/>
+<div class="page-header">
+    <h3>Foodstuffs on sale</h3>
+</div>
+
+<ul class="commodities">
+    {% if commodities == [] %}
+    <p> Sorry! Currently, there are no foodstuffs on sale</p>
+    <hr>
+    <img src = "{{ url_for('static', filename = 'image3.jpg') }}" class="center"/>
+
+    {% elif current_user.role == 'Administrator' %}
+    <img src="{{ url_for('static', filename = 'image4.jpg') }}" class="center"
+    width="800"
+    height="500"/>
+    <hr>
+    {% for commodity1 in commodities %}
+        <img src="{{ url_for('.view', id=commodity1.id) }}"
+            width="180" height="180" id="left-box" class="final2"/>
+        <div class="final">
+            <div class="profile-thumbnail">
+                <img class="img-rounded profile-thumbnail"
+                    src="{{ commodity1.author.gravatar(size=40) }}">
+            </div>
+            <a class="commodity-owner" href="{{ url_for('.user', username=commodity1.author.username) }}">Seller : {{ commodity1.author.name }}</a>
+            <div class="commodity-name"><b>Commodity name :</b> {{ commodity1.name }}</div>
+            <div class="commodity-type"><b>Commodity Type :</b> {{ commodity1.type }}</div>
+            <div class="commodity-manDate"><b>Manufacture Date :</b> {{ commodity1.manDate }}</div>
+            <div class="commodity-expDate"><b>Expiry Date :</b> {{ commodity1.expDate }}</div>
+            <div class="commodity-quantity"><b>Quantity on sale :</b> {{ commodity1.quantity }}</div>
+            <div class="commodity-oprice"><b>Old Price per unit in Kenyan Shillings :</b> {{ commodity1.oldPrice }}</div>
+            <div class="commodity-price"><b>Discounted Price per unit in Kenyan Shillings :</b> {{ commodity1.discPrice }}</div>
+            <div class="commodity-discount"><b>Percentage Discount :</b> {{ commodity1.percDiscount }}%</div>
+            <div class="commodity-stock"><b>In Stock :</b> {{ commodity1.inStock }}</div>
+            <div class="commodity-description"><b>Additional Description :</b> {{ commodity1.addDesc }}</div>
+
+            <a class="btn btn-default" href="{{ url_for('.add_to_cart', id=commodity1.id) }}">
+                Add to Cart</a>
+            <a class="btn btn-default" href="{{ url_for('.view_all', id=commodity1.id) }}" target="_blank" rel="noopener noreferrer">
+                See full picture
+            </a>
+            <hr>
+        </div>
+    {% endfor %}
+    {% else %}
+    <img src="{{ url_for('static', filename = 'image4.jpg') }}" class="center"
+    width="800"
+    height="500"/>
+    <hr>
+    {% for commodity1 in commodities %}
+        <img src="{{ url_for('.view', id=commodity1.id) }}"
+            width="180" height="180" id="left-box" class="final2"/>
+        <div class="final">
+            <div class="profile-thumbnail">
+                <img class="img-rounded profile-thumbnail"
+                    src="{{ commodity1.author.gravatar(size=40) }}">
+            </div>
+            <div class="commodity-author"><b>Seller :</b> {{ commodity1.author.name }}</div>
+            <div class="commodity-name"><b>Commodity name :</b> {{ commodity1.name }}</div>
+            <div class="commodity-type"><b>Commodity Type :</b> {{ commodity1.type }}</div>
+            <div class="commodity-manDate"><b>Manufacture Date :</b> {{ commodity1.manDate }}</div>
+            <div class="commodity-expDate"><b>Expiry Date :</b> {{ commodity1.expDate }}</div>
+            <div class="commodity-quantity"><b>Quantity on sale :</b> {{ commodity1.quantity }}</div>
+            <div class="commodity-oprice"><b>Old Price per unit in Kenyan Shillings :</b> {{ commodity1.oldPrice }}</div>
+            <div class="commodity-price"><b>Discounted Price per unit in Kenyan Shillings :</b> {{ commodity1.discPrice }}</div>
+            <div class="commodity-discount"><b>Percentage Discount :</b> {{ commodity1.percDiscount }}%</div>
+            <div class="commodity-stock"><b>In Stock :</b> {{ commodity1.inStock }}</div>
+            <div class="commodity-description"><b>Additional Description :</b> {{ commodity1.addDesc }}</div>
+
+            <a class="btn btn-default" href="{{ url_for('.add_to_cart', id=commodity1.id) }}">
+                Add to Cart
+            </a>
+            <a class="btn btn-default" href="{{ url_for('.view_all', id=commodity1.id) }}" target="_blank" rel="noopener noreferrer">
+                See full picture
+            </a>
+            <a class="btn btn-default" href="{{ url_for('.report', id=commodity1.id) }}" target="_blank" rel="noopener noreferrer">
+                Report
+            </a>
+            <hr>
+        </div>
+    {% endfor %}
+    {% endif %}
+</ul>
+{% endblock %}

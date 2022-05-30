@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Mwafunzi - Goods that are out of stock{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>Out of stock goods</h1>
+</div>
+<link rel="stylesheet" href='/static/main.css'/>
+{% if stocks == [] %}
+<p>
+    All goods on catalog are in stock
+</p>
+<img src = "{{ url_for('static', filename = 'image3.jpg') }}" class="center"/>
+{% else %}
+<table class="table">
+    <tr>
+        <th><b>Commodity ID</b></th>
+        <th><b>Commodity name</b></th>
+        <th><b>Commodity type</b></th>
+        <th><b>Manufacture Date</b></th>
+        <th><b>Expiry Date</b></th>
+        <th><b>Quantity</b></th>
+        <th><b>Old Price per unit</b></th>
+        <th><b>New Price per unit</b></th>
+        <th><b>% Discount</b></th>
+        <th><b>Time added</b></th>
+        <th><b>In stock</b></th>
+        <th><b>Seller</b></th>
+        <th><b>Option</b></th>
+    </tr>
+    {% for stock in stocks%}
+    <tr>
+        <td><div class="commodity-id">{{stock.id}}</div></td>
+        <td><div class="commodity-name">{{stock.name}}</div></td>
+        <td><div class="commodity-type">{{stock.type}}</div></td>
+        <td><div class="commodity-man">{{stock.manDate}}</div></td>
+        <td><div class="commodity-exp">{{stock.expDate}}</div></td>
+        <td><div class="commodity-quantity">{{stock.quantity}}</div></td>
+        <td><div class="commodity-old">{{stock.oldPrice}}</div></td>
+        <td><div class="commodity-new">{{stock.newPrice}}</div></td>
+        <td><div class="commodity-discount">{{stock.percDiscount}}</div></td>
+        <td><div class="commodity-timestamp">{{stock.timestamp}}</div></td>
+        <td><div class="commodity-instock">{{stock.inStock}}</div></td>
+        <td><div class="commodity-seller">{{stock.author1}}</div></td>
+        <td>
+            <div class="commodity-delete">
+                <a class="btn btn-default" href="{{ url_for('.delete_stock', id = stock.id) }}">
+                    Delete instance
+                </a>
+            </div>
+        </td>
+    </tr>
+    {% endfor %}
+{% endif %}
+</table>
+{% endblock %}

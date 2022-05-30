@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}Mwafunzi - Goods Bought {% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>Goods bought by users</h1>
+</div>
+<ul class="bought">
+    {% if bought == [] %}
+    <p> Sorry! No goods have been bought yet...</p>
+    <img src = "{{ url_for('static', filename = 'image3.jpg') }}" class="center"/>
+    {% else %}
+    <table class="table">
+        <tr>
+            <th>Receipt number </th>
+            <th>Buyer </th>
+            <th>Commodity name </th>
+            <th>Commodity Type </th>
+            <th>Expiry Date </th>
+            <th>Manufacture Date </th>
+            <th>Quantity bought </th>
+            <th>Price in Kenyan Shillings </th>
+            <th>Time of Purchase </th>
+            <th>Bought </th>
+            <th>Claimed </th>
+            <th>Sold by </th>
+            <th>Option    </th>
+        </tr>
+        {% for boughts in bought %}
+        <tr>
+            <td>
+                <div class="commodity-receipt">0000{{ boughts.id }}</div>
+            </td>
+            <td>
+                <div class="commodity-buyer">{{ boughts.buyer }}</div>
+            </td>
+            <td>
+                <div class="commodity-name">{{ boughts.name }}</div>
+            </td>
+            <td>
+                <div class="commodity-type">{{ boughts.type }}</div>
+            </td>
+            <td>
+                <div class="commodity-exp">{{ boughts.expDate }}</div>
+            </td>
+            <td>
+                <div class="commodity-man">{{ boughts.manDate }}</div> 
+            </td>
+            <td>
+                <div class="commodity-quantity">{{ boughts.reqQuantity }}</div>
+            </td>
+            <td>
+                <div class="commodity-price">{{ boughts.price }}</div>
+            </td>
+            <td>
+                <div class="commodity-time">{{ boughts.timestamp }}</div>
+            </td>
+            <td>
+                <div class="commodity-bought">{{ boughts.bought }}</div>
+            </td>
+            <td>
+                <div class="commodity-claimed">{{ boughts.claimed }}</div> 
+            </td>
+            <td>
+                <div class="commodity-seller">{{ boughts.seller }}</div>
+            </td>
+            <td>
+                {% if boughts.claimed == False %}
+                    <a class="btn btn-default" href="{{ url_for('.confirm_claim', id = boughts.id) }}">
+                        Confirm claim
+                    </a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</ul>
+{% endblock %}

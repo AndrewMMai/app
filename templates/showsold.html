@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Mwafunzi - Goods Sold By {{user}} {% endblock %}
+
+{% block page_content %}
+<link rel="stylesheet" href='/static/main.css'/>
+<div class="page-header">
+    <h1>Goods Sold By {{user}}</h1>
+</div>
+<ul class="commodities">
+    {% if commodities == [] %}
+    <p> Sorry! No goods sold yet...</p>
+    <img src = "{{ url_for('static', filename = 'image3.jpg') }}" class="center"/>
+    {% else %}
+    <table class="table">
+        <tr>
+            <td><b>Buyer</b></td>
+            <td><b>Commodity name</b></td>
+            <td><b>Commodity Type</b></td>
+            <td><b>Expiry Date</b></td>
+            <td><b>Manufacture Date</b></td>
+            <td><b>Quantity bought</b></td>
+            <td><b>Price in Kenyan Shillings</b></td>
+            <td><b>Time of purchase</b></td>
+            <td><b>Bought</b></td>
+            <td><b>Claimed</b></td>
+            <td><b>Sold By</b></td>
+        </tr>
+        {% for commodity in commodities %}
+        <tr>
+            <td><div class="commodity-buyer">{{ commodity.buyer }}</div></td>
+            <td><div class="commodity-name">{{ commodity.name }}</div></td>
+            <td><div class="commodity-type">{{ commodity.type }}</div></td>
+            <td><div class="commodity-exp">{{ commodity.expDate }}</div></td>
+            <td><div class="commodity-man">{{ commodity.manDate }}</div></td>
+            <td><div class="commodity-quantity">{{ commodity.reqQuantity }}</div></td>
+            <td><div class="commodity-price">{{ commodity.price }}</div></td>
+            <td><div class="commodity-time">{{ commodity.timestamp }}</div></td>
+            <td><div class="commodity-bought">{{ commodity.bought }}</div></td>
+            <td><div class="commodity-claimed">{{ commodity.claimed }}</div></td>
+            <td><div class="commodity-seller">{{ commodity.seller }}</div></td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</ul>
+<p>
+    <b>Total: <i>Ksh {{ sum }}</i></b>
+</p>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Shopping Cart Page{% endblock %}
+{% block page_content %}
+<link rel = "stylesheet" href = '/static/main.css/'/>
+<div class="page-header">
+    <h1>Shopping Cart</h1>
+</div>
+    
+<ul class="commodities">
+    {% if commodities == [] %}
+    <p> Sorry! Currently, there are no items in cart...</p>
+    <img src = "{{ url_for('static', filename = 'image3.jpg') }}" class="center"/>
+    {% else %}
+    <p>
+        Below is the list of commodities you want to buy:
+    </p>
+    <table class="table">
+        <tr>
+            <th>Commodity ID</th>
+            <th>Seller</th>
+            <th>Commodity name</th>
+            <th>Commodity Type</th>
+            <th>Quantity to be bought</th>
+            <th>Price in Kenyan Shillings</th>
+            <th>Option 1</th>
+            <th>Option 2</th>
+        </tr>
+        {% for commodity3 in commodities %}
+        <tr>
+            <td><div class="commodity-id">{{ commodity3.id }}</div></td>
+            <td><div class="commodity-author">{{ commodity3.seller }}</div></td>
+            <td><div class="commodity-name">{{ commodity3.name }}</div></td>
+            <td><div class="commodity-type">{{ commodity3.type }}</div></td>
+            <td><div class="commodity-quantity">{{ commodity3.reqQuantity }}</div></td>
+            <td><div class="commodity-price">{{ commodity3.price }}</div></td>
+            <td>
+                <a class="btn btn-default" href="{{ url_for('.delete_cart', id = commodity3.id) }}">
+                    Remove from shopping Cart
+                </a>
+            </td>
+            <td>
+                <a class="btn btn-default" href="{{ url_for('.change_quantity', id = commodity3.id) }}">
+                    Change quantity
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+    <a class="btn btn-default" href="{{ url_for('.payment', commodities = commodities) }}">
+        Pay for goods
+    </a>
+    {% endif %}
+</ul>
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block title %}Mwafunzi - Search Results{% endblock %}
+{% block page_content %}
+<div class="page-header">
+    <h1>Search results for "{{searched}}"</h1>
+</div>
+<link rel="stylesheet" href='/static/main.css'/>
+{% if posts==[] %}
+<p>
+    No such item is on sale.
+    <img src = "{{ url_for('static', filename = 'image3.jpg') }}" class="center"/>
+</p>
+{% elif user.role == 'Administrator' %}
+{% for post in posts %}
+<div class="search-item">
+    <img src="{{ url_for('.view', id=post.id) }}"
+            width="180" height="180" id="left-box" class="final2"/>
+        <div class="final">
+            <div class="profile-thumbnail">
+                <img class="img-rounded profile-thumbnail"
+                    src="{{ post.author.gravatar(size=40) }}">
+            </div>
+            <a class="commodity-seller" href="{{ url_for('.user', username=post.author.username) }}">
+                <b>Seller :</b> {{ post.author1 }}</a>
+            <div class="commodity-name"><b>Commodity name :</b> {{ post.name }}</div>
+            <div class="commodity-type"><b>Commodity Type :</b> {{ post.type }}</div>
+            <div class="commodity-quantity"><b>Quantity on sale :</b> {{ post.quantity }}</div>
+            <div class="commodity-oprice"><b>Old Price per unit in Kenyan Shillings :</b>
+                 {{ post.oldPrice }}</div>
+            <div class="commodity-price"><b>Discounted Price per unit in Kenyan Shillings :</b>
+                 {{ post.discPrice }}</div>
+            <div class="commodity-discount"><b>Percentage Discount :</b>
+                 {{ post.percDiscount }}%</div>
+            <div class="commodity-stock"><b>In Stock :</b> {{ post.inStock }}</div>
+
+            <a class="btn btn-default" href="{{ url_for('.add_to_cart', id=post.id) }}">
+                Add to Cart
+            </a>
+            <a class="btn btn-default" href="{{ url_for('.view_all', id=post.id) }}">
+                See full picture
+            </a>
+        </div>
+</div>
+{% endfor %}
+{% else %}
+{% for post in posts %}
+<div class="search-item">
+    <img src="{{ url_for('.view', id=post.id) }}"
+            width="180" height="180" id="left-box" class="final2"/>
+        <div class="final">
+            <div class="profile-thumbnail">
+                <img class="img-rounded profile-thumbnail"
+                    src="{{ post.author.gravatar(size=40) }}">
+            </div>
+            <a class="commodity-seller"><b>Seller :</b> {{ post.author1 }}</a>
+            <div class="commodity-name"><b>Commodity name :</b> {{ post.name }}</div>
+            <div class="commodity-type"><b>Commodity Type :</b> {{ post.type }}</div>
+            <div class="commodity-quantity"><b>Quantity on sale :</b> {{ post.quantity }}</div>
+            <div class="commodity-oprice"><b>Old Price per unit in Kenyan Shillings :</b> {{ post.oldPrice }}</div>
+            <div class="commodity-price"><b>Discounted Price per unit in Kenyan Shillings :</b> {{ post.discPrice }}</div>
+            <div class="commodity-discount"><b>Percentage Discount :</b> {{ post.percDiscount }}%</div>
+            <div class="commodity-stock"><b>In Stock :</b> {{ post.inStock }}</div>
+
+            <a class="btn btn-default" href="{{ url_for('.add_to_cart', id=post.id) }}">
+                Add to Cart
+            </a>
+            <a class="btn btn-default" href="{{ url_for('.view_all', id=post.id) }}">
+                See full picture
+            </a>
+        </div>
+</div>
+{% endfor %}
+{% endif %}
+{% if users==[] %}
+<div class="page-header">
+    <h1>Existing Users</h1>
+</div>
+<div>
+    <p>
+        No such user exists!
+    </p>
+    <hr>
+    <img src = "{{ url_for('static', filename = 'image3.jpg') }}" class="center"/>
+    
+</div>
+{% else %}
+<div class="page-header">
+    <h1>Existing Users</h1>
+</div>
+{% for use in users %}
+<div class="user-names">
+    <p>
+        <b>User :</b><a class="user-name" href="{{ url_for('.user', username=use.username) }}">{{ use.name }}</a>
+    </p>
+    
+</div>
+{% endfor %}
+{% endif %}
+{% endblock %}

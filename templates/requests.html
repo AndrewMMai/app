@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Mwafunzi - Requests{% endblock %}
+{% block page_content %}
+<div class="page-header">
+    <h1>Pending Requests</h1>
+</div>
+<ul class="requests">
+    {% if requests == [] %}
+    <p>
+        Currently, there are no pending requests!
+    </p>
+    {% else %}
+    <table class="table">
+        <tr>
+            <th>Posted by</th>
+            <th>About</th>
+            <th>Time</th>
+            <th>Option</th>
+        </tr>
+    
+        {% for request in requests %}
+        <tr>
+            <td>
+                <div class="issue-author">
+                    <a href="{{ url_for('.user', username=request.username) }}">
+                        {{ request.name }}
+                    </a>
+                </div>
+            </td>
+            <td>
+                <div class="issue-about">{{ request.issue }}</div>
+            </td>
+            <td>
+                <div class="issue-time">{{ request.timestamp }}</div>
+            </td>
+            <td>
+                <a class="btn btn-default" href="{{ url_for('.delete_request', id = request.id) }}">
+                    Delete request
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</ul>
+<div class="page-header">
+    <h2>Goods Bought</h2>
+</div>
+<div class="issue-author">
+    <a class="btn btn-default" href="{{ url_for('.bought') }}">
+        See bought goods
+    </a>
+</div>
+<div>
+    <h2>Goods out of stock </h2>
+    <a class="btn btn-default" href="{{ url_for('.outstock') }}"> See goods</a>
+</div>
+{% endblock %}

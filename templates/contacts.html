@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Contacts Page{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>Mwafunzi Discount Platform</h1>
+</div>
+<div>
+    <div class="page-header">
+        <h2>Address</h2>
+    </div>
+    <div>
+        <ul>
+            <li>P.O BOX 1240-00100 GPO</li>
+            <li>Nairobi</li>
+            <li>Tel: +254701018899</li>
+            <li>Twitter: Mwafunzi Discount Platform</li>
+        </ul>
+    </div>
+    <div class="page-header">
+        <h2>Directions</h2>
+    </div>
+        <ul>
+            <li>Mwafunzi Building, 1st Floor</li>
+            <li>Next to Mahatma Gandhi Building</li>
+            <hr>
+            <img src="{{ url_for('static', filename='image2.png') }}" 
+            width="400"
+            height="200"/>
+        </ul>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Mwafunzi - Cash Payment{% endblock %}
+{% block page_content %}
+<div class="page-header">
+    <h1>Pay in cash</h1>
+</div>
+<p>
+    Please report to the Collection Centre at Mahatma Gandhi Wing with your
+    <b>school ID card</b>, <b>the respective MPESA message</b> and the following details to collect your purchased goods:
+    <p>
+        <b>Receipt Number: <i>0000{{ coomm1.id }}</i></b>
+    </p>
+    <table class="table">
+        <tr>
+            <th>Quantity </th>
+            <th>Item </th>
+        </tr>
+        {% for coomm in commodities%}
+            <tr>
+                <td>
+                    <div class="commodity-short1">{{ coomm.reqQuantity }}</div>
+                </td>
+                <td>
+                    <div class="commodity-short1">{{ coomm.name }}</div>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <p> 
+        <b>Total cash to be paid: <i>Ksh. {{sum}}</i></b>
+    </p>
+    <a class="btn btn-default" href="{{ url_for('.confirm') }}">
+        Confirm
+    </a>
+    <p>
+        Please contact us at <b>+254701018899</b> for any assistance and/or enquiries.
+    </p>
+</p>
+
+{% endblock %}

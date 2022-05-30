@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Mwafunzi{% endblock %}
+{% block page_content %}
+<div>
+    {% if current_user.is_authenticated %}
+        <div class="page-header">
+            <h1>Hello, {{ current_user.username }}! </h1>
+        </div>
+        <p>Welcome to Mwafunzi!</p>
+        <link rel = "stylesheet" href = '/static/main.css/'/>
+        {% if current_user.confirmed == True %}
+        {% if messages == [] %}
+            <div class="page-header">
+                <h2>Dashboard</h2>
+            </div>
+            <p><b>No messages have been sent to you yet....</b></p>
+            <div class="page-header">
+                <h2>Other Options</h2>
+            </div>
+            <p>
+                Would you like to <b>explore our catalog</b> of goods on sale?
+                <a href="/catalog/"> Click here </a>
+                to go to Catalog Page
+            </p>
+        
+            <p>
+                Would you like to <b>sell</b> to other students?
+                <a href="/add-commodity/"> Click here </a>
+                to go to add a commodity for sale
+            </p>
+            <p>
+                Would you like to <b>become an administrator</b> or <b>relinquish the role</b>?
+                <a href="/become-admin/"> Click here </a>
+                to submit a request
+            </p>
+            <p>
+                <b>TIP:</b> Use the search bar to find the commodities you seek easily! 
+            </p>
+            <hr>
+            <link rel = "stylesheet" href = '/static/main.css/'/>
+            <img src="{{ url_for('static', filename='image1.jpg') }}" class="centre" 
+                width="1000"
+                height="600"/>
+        {% else %}
+            <div class="page-header">
+                <h2>Dashboard</h2>
+            </div>
+            <div class="page-header">
+                <h3>Most Recent</h3>
+            </div>
+            <table class="table">
+                <tr>
+                    <th>Sender</th>
+                    <th>Time Sent</th>
+                    <th>Message</th>
+                </tr>
+                <tr>
+                    <td>{{messages.sender}}</td>
+                    <td>{{messages.timestamp}}</td>
+                    <td>{{messages.message}}</td>
+                </tr>
+            </table>
+            <a class="btn btn-default" href="{{ url_for('main.see_all', id = current_user.user_id) }}">
+                See all
+            </a>
+            <hr>
+            <div class="page-header">
+                <h2>Other Options</h2>
+            </div>
+            <p>
+                Would you like to <b>explore our catalog</b> of goods on sale?
+                <a href="/catalog/"> Click here </a>
+                to go to Catalog Page
+            </p>
+        
+            <p>
+                Would you like to <b>sell</b> to other students?
+                <a href="/add-commodity/"> Click here </a>
+                to go to add a commodity for sale
+            </p>
+            <p>
+                Would you like to <b>become an administrator</b> or <b>relinquish the role</b>?
+                <a href="/become-admin/"> Click here </a>
+                to submit a request
+            </p>
+            <p>
+                <b>TIP:</b> Use the search bar to find the commodities you seek easily! 
+            </p>
+            <hr>
+            <link rel = "stylesheet" href = '/static/main.css/'/>
+            <img src="{{ url_for('static', filename='image1.jpg') }}" class="centre" 
+                width="1000"
+                height="600"/>
+        {% endif %}
+        {% endif %}
+    {% else %}
+        <div class="page-header">
+            <h1>Hello, Stranger! </h1>
+        </div>
+        <p> Please log in to obtain full functionality</p>
+        <a href="{{ url_for('auth.login') }}"> Click here to log in </a>
+        <p> New User?</p>
+        <a href="{{ url_for('auth.register') }}"> Click here to register</a>
+    {% endif %}
+
+</div>
+{% endblock %}

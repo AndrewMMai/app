@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Mwafunzi - View Specific Commodity{% endblock %}
+{% block asidecontent %}
+<div class="page-header">
+    <h1>Commodity Details</h1>
+</div>
+{% if commodity2.name == commodity.name %}
+<div>
+    <div class="commodity-name"><b>Commodity name :</b> {{ commodity.name }}</div>
+    <div class="commodity-type"><b>Commodity Type :</b> {{ commodity.type }}</div>
+    <div class="commodity-manDate"><b>Manufacture Date :</b> {{ commodity.manDate}}</div>
+    <div class="commodity-expDate"><b>Expiry Date :</b> {{ commodity.expDate}}</div>
+    <div class="commodity-quantity"><b>Quantity on sale :</b> {{ commodity.quantity }}</div>
+    <div class="commodity-oprice"><b>Old Price per unit in Kenyan Shillings :</b> {{ commodity.oldPrice }}</div>
+    <div class="commodity-price"><b>Discounted Price per unit in Kenyan Shillings :</b> {{ commodity.discPrice }}</div>
+    <div class="commodity-discount"><b>Percentage Discount :</b> {{ commodity.percDiscount }}%</div>
+    <div class="commodity-discount"><b>Time added :</b> {{ commodity.timestamp }}%</div>
+    <div class="commodity-stock"><b>In Stock :</b> {{ commodity.inStock }}</div>
+    <div class="commodity-description"><b>Additional Description :</b> {{ commodity.addDesc }}</div>
+</div>
+{% elif commodity2.name != commodity.name %}
+<div>
+    <div class="commodity-name"><b>Commodity name :</b> {{ commodity.name }}</div>
+    <div class="commodity-type"><b>Commodity Type :</b> {{ commodity.type }}</div>
+    <div class="commodity-manDate"><b>Manufacture Date :</b> {{ commodity.manDate}}</div>
+    <div class="commodity-expDate"><b>Expiry Date :</b> {{ commodity.expDate}}</div>
+    <div class="commodity-quantity"><b>Quantity on sale :</b> {{ commodity.quantity }}</div>
+    <div class="commodity-oprice"><b>Old Price per unit in Kenyan Shillings :</b> {{ commodity.oldPrice }}</div>
+    <div class="commodity-price"><b>Discounted Price per unit in Kenyan Shillings :</b> {{ commodity.discPrice }}</div>
+    <div class="commodity-discount"><b>Percentage Discount :</b> {{ commodity.percDiscount }}%</div>
+    <div class="commodity-discount"><b>Time added :</b> {{ commodity.timestamp }}%</div>
+    <div class="commodity-stock"><b>In Stock :</b> {{ commodity.inStock }}</div>
+    <div class="commodity-description"><b>Additional Description :</b> {{ commodity.addDesc }}</div>
+    <a class="btn btn-default" href="{{ url_for('.add', time=commodity.timestamp) }}">
+        Approve post
+    </a>
+</div>
+{% endif %}
+{% endblock %}

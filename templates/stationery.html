@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}Mwafunzi - Stationery Page{% endblock %}
+{% block asidecontent %}
+<div class="page-header">
+    <h3>Stationery commodities on sale</h3>
+</div>
+<link rel="stylesheet" href='/static/main.css'/>
+<ul class="commodities">
+    {% if commodities == [] %}
+    <p> Sorry! Currently, there are no stationery on sale</p>
+    <hr>
+    <img src = "{{ url_for('static', filename = 'image3.jpg') }}" class="center"/>
+
+    {% elif current_user.role == 'Administrator' %}
+    <img src="{{ url_for('static', filename = 'image12.jpg') }}" class="center"
+    width="800"
+    height="500"/>
+    <hr>
+    {% for commodity in commodities.items %}
+    <img src="{{ url_for('.view', id=commodity.id) }}"
+        width="180" height="180" id="left-box" class="final2"/>
+    <div class="final">
+        <div class="profile-thumbnail">
+            <img class="img-rounded profile-thumbnail"
+                src="{{ commodity.author.gravatar(size=40) }}">
+        </div>
+        <a class="commodity-owner" href="{{ url_for('.user', username=commodity.author.username) }}">Seller : {{ commodity.author.name }}</a>
+        <div class="commodity-name"><b>Commodity name :</b> {{ commodity.name }}</div>
+        <div class="commodity-type"><b>Commodity Type :</b> {{ commodity.type }}</div>
+        <div class="commodity-quantity"><b>Quantity on sale :</b> {{ commodity.quantity }}</div>
+        <div class="commodity-oprice"><b>Old Price per unit in Kenyan Shillings :</b> {{ commodity.oldPrice }}</div>
+        <div class="commodity-price"><b>Discounted Price per unit in Kenyan Shillings :</b> {{ commodity.discPrice }}</div>
+        <div class="commodity-discount"><b>Percentage Discount :</b> {{ commodity.percDiscount }}%</div>
+        <div class="commodity-stock"><b>In Stock :</b> {{ commodity.inStock }}</div>
+        <div class="commodity-description"><b>Additional Description :</b> {{ commodity.addDesc }}</div>
+
+        <a class="btn btn-default" href="{{ url_for('.add_to_cart', id=commodity.id) }}">
+            Add to Cart</a>
+        </a>
+        <a class="btn btn-default" href="{{ url_for('.view_all', id=commodity.id) }}" target="_blank" rel="noopener noreferrer">
+            See full picture
+        </a>
+        <hr>
+    </div>
+    {% endfor %}
+    {% else %}
+    <img src="{{ url_for('static', filename = 'image12.jpg') }}" class="center"
+    width="800"
+    height="500"/>
+    {% for commodity in commodities.items %}
+    <img src="{{ url_for('.view', id=commodity.id) }}"
+        width="180" height="180" id="left-box" class="final2"/>
+    <div class="final">
+        <div class="profile-thumbnail">
+            <img class="img-rounded profile-thumbnail"
+                src="{{ commodity.author.gravatar(size=40) }}">
+        </div>
+        <div class="commodity-author"><b>Seller :</b> {{ commodity.author.name }}</div>
+        <div class="commodity-name"><b>Commodity name :</b> {{ commodity.name }}</div>
+        <div class="commodity-type"><b>Commodity Type :</b> {{ commodity.type }}</div>
+        <div class="commodity-quantity"><b>Quantity on sale :</b> {{ commodity.quantity }}</div>
+        <div class="commodity-oprice"><b>Old Price per unit in Kenyan Shillings :</b> {{ commodity.oldPrice }}</div>
+        <div class="commodity-price"><b>Discounted Price per unit in Kenyan Shillings :</b> {{ commodity.discPrice }}</div>
+        <div class="commodity-discount"><b>Percentage Discount :</b> {{ commodity.percDiscount }}%</div>
+        <div class="commodity-stock"><b>In Stock :</b> {{ commodity.inStock }}</div>
+        <div class="commodity-description"><b>Additional Description :</b> {{ commodity.addDesc }}</div>
+
+        <a class="btn btn-default" href="{{ url_for('.add_to_cart', id=commodity.id) }}">
+            Add to Cart</a>
+        </a>
+        <a class="btn btn-default" href="{{ url_for('.view_all', id=commodity.id) }}" target="_blank" rel="noopener noreferrer">
+            See full picture
+        </a>
+        <a class="btn btn-default" href="{{ url_for('.report', id=commodity.id) }}" target="_blank" rel="noopener noreferrer">
+            Report
+        </a>
+        <hr>
+    </div>
+    {% endfor %}
+    {% endif %}
+</ul>
+{% endblock %}

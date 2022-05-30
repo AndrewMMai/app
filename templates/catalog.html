@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Catalog Page{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ message }}
+    </div>
+    {% endfor %}
+    <link rel="stylesheet" href='/static/main.css'/>
+    <div class="page-header">
+        <h1>Catalog Page</h1>
+    </div>
+    {% block asidecontent %}
+    <div class="goods-link">
+        <p>Here at Mwafunzi, we are dedicated to providing students with quality goods
+            that pass through a thorough inspection phase before reaching the consumer.
+         </p>
+         <p>Here are the types of goods we offer:</p>
+
+            <img src = "{{ url_for('static', filename='image5.png') }}" width="50" height="50"/> <a class="link good-type" href="/catalog/electronics/"> Electronics</a>
+            <img src = "{{ url_for('static', filename='image6.png') }}" width="50" height="50" class="link good-type2"/> <a href="/catalog/foodstuffs/"> Foodstuffs</a>
+            <img class="link good-type2" src = "{{ url_for('static', filename='image8.png') }}" width="50" height="50"/> <a class="link good-type" href="/catalog/stationery/"> Stationery</a>
+            <img src = "{{ url_for('static', filename='image7.jpg') }}" width="50" height="50" class="link good-type2"/> <a href="/catalog/cutlery/"> Cutlery</a>
+        <p>
+            Or would you like to add a commodity for sale instead?
+        </p> 
+            <img src = "{{ url_for('static', filename='image10.jpg') }}" width="50" height="50"/><a class="link add-commodity" href="/add-commodity/"> Add Commodity</a>
+    </div>
+    {% endblock %}
+</div>
+{% endblock %}

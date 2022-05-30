@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Payment Page{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>Payment Page</h1>
+</div>
+<div>
+    <table class="table">
+        <tr>
+            <th>Commodity ID</th>
+            <th>Commodity name</th>
+            <th>Price in Kenyan Shillings</th>
+        </tr>
+        {% for commodity in commodities %}
+        <tr>
+            <td>
+                <div class="commodity-id">{{ commodity.id }}</div>
+            </td>
+            <td>
+                <div class="commodity-name">{{ commodity.name }}</div>
+            </td>
+            <td>
+                <div class="commodity-price">{{ commodity.price }}</div>
+            </td>
+        </tr>    
+        {% endfor %}
+    </table>
+    <a class="btn btn-default" href="{{ url_for('.mpesa_payment') }}">
+        Pay via MPESA
+    </a>
+    <a class="btn btn-default" href="{{ url_for('.cash_payment') }}">
+        Pay in cash
+    </a>
+</div>
+{% endblock %}
